@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { computed, effect, inject, Injectable, signal } from '@angular/core'
 import { Router } from '@angular/router'
-import { Observable, of, switchMap } from 'rxjs'
+import { map, Observable, of, switchMap } from 'rxjs'
 import { LocalStorageService } from '../../../core/services/local-storage.service'
 import { UserStateModel } from '../models/interfaces/user-state.interface'
 import { AuthStateModel } from '../models/interfaces/auth-state.interface'
@@ -102,6 +102,34 @@ export class StateService {
         this.state.$auth.set(payload)
     }
 
+    refreshToken(): Observable<AuthStateModel> {
+        const authUrl = 'https://49ers-levis-stadium-api.staging.silentiumapps.com/api/auth'
+        const headers = new HttpHeaders().set('Content-Type', 'application/json').set('charset', 'utf8')
+
+        const body = JSON.stringify({
+            id: this.auth$().id,
+            token: this.auth$().token,
+            refreshToken: this.auth$().refreshToken,
+            expirationDate: this.auth$().expirationDate,
+            display: this.auth$().display,
+        })
+        return this.httpClient.post(`${authUrl}/refresh`, body, { headers }).pipe(
+            map((response: any) => {
+                const data = {
+                    isAuthenticated: true,
+                    token: response.token,
+                    refreshToken: response.refreshToken,
+                    expirationDate: new Date(response.expirationDate),
+                    id: this.auth$().id,
+                    display: this.auth$().display,
+                    roles: this.auth$().roles,
+                }
+
+                return data
+            })
+        )
+    }
+
     logout() {
         this.state.$auth.set({
             isAuthenticated: false,
@@ -121,5 +149,6 @@ export class StateService {
         })
 
         this.localStorageService.clearStorage()
+        this.router.navigate(['login'])
     }
 }
