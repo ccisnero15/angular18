@@ -13,7 +13,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
 
     return next(authRequest).pipe(
         catchError((error) => {
-            if (error.status === 401) {
+            if (error.status === 401 && stateService.auth$().isAuthenticated) {
                 return stateService.refreshToken().pipe(
                     switchMap((response) => {
                         stateService.setAuth(response)
