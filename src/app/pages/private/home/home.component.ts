@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { StateService } from '../../../shared/state/services/state.service'
-import { ApiService } from '../../../core/services/api.service'
-import { DepartmentModel } from '../../../shared/state/models/department.interface'
+import { DepartmentModel } from '../../../shared/models/interfaces/department.interface'
+import { DepartmentsApiService } from '../../../shared/services/apis/departments.api'
 
 @Component({
     selector: 'app-home',
@@ -9,16 +9,16 @@ import { DepartmentModel } from '../../../shared/state/models/department.interfa
     imports: [],
     templateUrl: './home.component.html',
 })
-export class HomeComponent extends ApiService<DepartmentModel> implements OnInit {
+export class HomeComponent implements OnInit {
     stateService = inject(StateService)
-    protected override pathName = 'departments'
+    departmentsApiService = inject(DepartmentsApiService)
+
     logout() {
         this.stateService.logout()
     }
 
     ngOnInit(): void {
-        //this.getPaginatedList('departments').subscribe((response) => console.log(response.data))
-        this.getById(1).subscribe((response) => console.log(response))
+        this.departmentsApiService.getById(1).subscribe((response) => console.log(response))
     }
 
     updateRecord() {
@@ -28,7 +28,7 @@ export class HomeComponent extends ApiService<DepartmentModel> implements OnInit
             name: 'Club',
         }
 
-        this.update(data).subscribe((response) => console.log(response))
+        this.departmentsApiService.update(data).subscribe((response) => console.log(response))
     }
 
     createRecord() {
@@ -38,6 +38,6 @@ export class HomeComponent extends ApiService<DepartmentModel> implements OnInit
             name: 'Test2',
         }
 
-        this.create(data).subscribe((response) => console.log(response))
+        this.departmentsApiService.create(data).subscribe((response) => console.log(response))
     }
 }

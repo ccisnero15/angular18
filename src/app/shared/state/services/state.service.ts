@@ -3,23 +3,8 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable, of, switchMap } from 'rxjs'
 import { LocalStorageService } from '../../../core/services/local-storage.service'
-
-export interface AuthModel {
-    id: string
-    token: string
-    roles: Array<string>
-    display: string
-    refreshToken: string
-    expirationDate: Date
-    isAuthenticated: boolean
-}
-
-export interface UserModel {
-    userId: number | null
-    email: string | null
-    firstName: string | null
-    lastName: string | null
-}
+import { UserStateModel } from '../models/interfaces/user-state.interface'
+import { AuthStateModel } from '../models/interfaces/auth-state.interface'
 
 @Injectable({
     providedIn: 'root',
@@ -32,7 +17,7 @@ export class StateService {
     constructor() {}
 
     private state = {
-        $user: signal<UserModel>(
+        $user: signal<UserStateModel>(
             this.localStorageService.getStorage('user') || {
                 userId: null,
                 firstName: null,
@@ -40,7 +25,7 @@ export class StateService {
                 email: null,
             }
         ),
-        $auth: signal<AuthModel>(
+        $auth: signal<AuthStateModel>(
             this.localStorageService.getStorage('auth') || {
                 isAuthenticated: false,
                 token: '',
@@ -109,11 +94,11 @@ export class StateService {
     }
 
     //Reducers
-    setUser(payload: UserModel) {
+    setUser(payload: UserStateModel) {
         this.state.$user.set(payload)
     }
 
-    setAuth(payload: AuthModel) {
+    setAuth(payload: AuthStateModel) {
         this.state.$auth.set(payload)
     }
 

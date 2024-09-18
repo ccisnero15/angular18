@@ -1,18 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { DestroyRef, inject, Injectable } from '@angular/core'
+import { DestroyRef, inject } from '@angular/core'
 import { map, Observable } from 'rxjs'
+import { MultipleRecordsResponse } from '../interfaces/multiple-record-response.interface'
 
-export interface MultipleRecordsResponse<T> {
-    count: number
-    start: number
-    length: number
-    data: T[]
-}
-
-// @Injectable({
-//     providedIn: 'root',
-// })
-export class ApiService<T> {
+export abstract class ApiClass<T> {
     private apiUrl = 'https://49ers-levis-stadium-api.staging.silentiumapps.com/api/'
     protected pathName: string = ''
     private headers = new HttpHeaders().set('Content-type', 'application/json').set('charset', 'utf8')

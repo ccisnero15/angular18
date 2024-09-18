@@ -1,6 +1,6 @@
 import * as crypto from 'crypto-js'
 
-export class CryptoService {
+export class CryptoClass {
     static encrypt(value: any): any {
         const result = crypto.AES.encrypt(value, 'Key')
         return result.toString()
