@@ -74,16 +74,22 @@ export class StateService {
                     return of({})
                 })
             )
-            .subscribe((response) => {
-                if (response.data) {
-                    const payload = {
-                        userId: response.data.userId,
-                        email: response.data.email,
-                        lastName: response.data.lastName,
-                        firstName: response.data.firstName,
+            .subscribe({
+                next: (response) => {
+                    if (response.data) {
+                        const payload = {
+                            userId: response.data.userId,
+                            email: response.data.email,
+                            lastName: response.data.lastName,
+                            firstName: response.data.firstName,
+                        }
+                        this.setUser(payload)
                     }
-                    this.setUser(payload)
-                }
+                },
+                error: (error) => {
+                    //Mostrar toast con mensaje de error p/ credenciales invalidas
+                    console.log(error)
+                },
             })
     }
 

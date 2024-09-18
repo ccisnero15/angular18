@@ -30,8 +30,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
                     })
                 )
             }
-            console.log('error', error)
-            return throwError(() => error)
+            return throwError(() => 'Credenciales inválidas')
         })
     )
 }
