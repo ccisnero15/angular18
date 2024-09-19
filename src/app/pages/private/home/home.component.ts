@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
             name: 'Club',
         }
 
-        this.departmentsApiService.update(data).subscribe((response) => console.log(response))
+        this.departmentsApiService.update(data).subscribe({ next: (response) => console.log(response) })
     }
 
     createRecord() {
