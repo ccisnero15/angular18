@@ -9,6 +9,6 @@ export const isAuthenticatedGuard: CanActivateFn = (route, state) => {
     //se lo redirecciona a la url donde estaba
 
     if (stateService.auth$().isAuthenticated) return true
-    router.navigate(['login'])
+    router.navigate(['public/login'])
     return false
 }

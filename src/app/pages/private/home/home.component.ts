@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core'
-import { StateService } from '../../../shared/state/services/state.service'
-import { DepartmentModel } from '../../../shared/models/interfaces/department.interface'
-import { DepartmentsApiService } from '../../../shared/services/apis/departments.api'
+import { DepartmentModel } from '@shared/models/interfaces/department.interface'
+import { DepartmentsApiService } from '@shared/services/apis/departments.api'
+import { StateService } from '@shared/state/services/state.service'
 
 @Component({
     selector: 'app-home',

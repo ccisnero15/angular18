@@ -1,7 +1,7 @@
 import { Route } from '@angular/router'
 import { PrivateComponent } from './private.component'
 import { HomeComponent } from './home/home.component'
-import { isAuthenticatedGuard } from '../../core/guards/is-authenticated.guard'
+import { isAuthenticatedGuard } from '@core/guards/is-authenticated.guard'
 
 export default [
     {

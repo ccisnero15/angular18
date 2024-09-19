@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ApiClass } from '../../../core/models/classes/api.class'
-import { DepartmentModel } from '../../models/interfaces/department.interface'
+import { DepartmentModel } from '@shared/models/interfaces/department.interface'
 
 @Injectable({
     providedIn: 'root',
