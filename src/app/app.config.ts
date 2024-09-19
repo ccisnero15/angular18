@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core'
-import { provideRouter, TitleStrategy, withComponentInputBinding, withRouterConfig } from '@angular/router'
+import { provideRouter, TitleStrategy, withComponentInputBinding, withRouterConfig, withViewTransitions } from '@angular/router'
 import { NgxSpinnerModule } from 'ngx-spinner'
 
 import routesConfig from './app.routes'
@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
             NgxSpinnerModule.forRoot({ type: 'ball-clip-rotate' })
         ),
         provideZoneChangeDetection({ eventCoalescing: true }),
-        provideRouter(routesConfig, withRouterConfig({ paramsInheritanceStrategy: 'always' }), withComponentInputBinding()),
+        provideRouter(routesConfig, withRouterConfig({ paramsInheritanceStrategy: 'always' }), withComponentInputBinding(), withViewTransitions()),
         provideHttpClient(withInterceptors([authInterceptor, spinnerInterceptor])),
         { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
     ],
