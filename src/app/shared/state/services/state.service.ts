@@ -68,7 +68,7 @@ export class StateService {
                         }
 
                         this.setAuth(payload)
-                        this.router.navigate(['home'])
+                        this.router.navigate(['private/home'])
                         return this.getCurrentUser()
                     }
                     return of({})
@@ -155,6 +155,6 @@ export class StateService {
         })
 
         this.localStorageService.clearStorage()
-        this.router.navigate(['login'])
+        this.router.navigate(['public/login'])
     }
 }
